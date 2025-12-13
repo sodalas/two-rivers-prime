@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/Button';
 import { Container } from '@/components/ui/Container';
+import { Link } from '@tanstack/react-router';
 
 export const LandingPage = () => {
   return (
@@ -23,13 +24,17 @@ export const LandingPage = () => {
             </p>
           </div>
 
-          <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <Button size="lg">
-              Begin the Journey
-            </Button>
-            <Button variant="ghost" size="lg">
-              Learn More
-            </Button>
+          <div className="flex gap-4 pt-4">
+            <Link to="/signup">
+              <Button size="lg" className="shadow-lg shadow-river-500/20">
+                Begin the Journey
+              </Button>
+            </Link>
+            <Link to="/login">
+              <Button size="lg" variant="secondary">
+                Continue Journey
+              </Button>
+            </Link>
           </div>
         </motion.div>
       </Container>

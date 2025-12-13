@@ -5,7 +5,9 @@ export const rootRoute = createRootRoute({
   component: () => <Outlet />,
 });
 
-const routeTree = rootRoute.addChildren([landingRoute]);
+import { loginRoute, signupRoute } from '@/features/auth/routes';
+
+const routeTree = rootRoute.addChildren([landingRoute, loginRoute, signupRoute]);
 
 export const router = createRouter({ routeTree });
 

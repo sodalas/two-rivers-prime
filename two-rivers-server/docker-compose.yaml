@@ -14,3 +14,13 @@ services:
     environment:
       - NEO4J_AUTH=neo4j/password
     restart: unless-stopped
+  postgres:
+    image: postgres:16
+    container_name: two-rivers-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: two_rivers_auth
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
