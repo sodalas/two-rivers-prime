@@ -15,10 +15,26 @@ export const createApp = () => {
   app.use(globalRateLimiter); // Rate limiter should likely come before expensive ops, but acceptable here.
 
   // CORS (Explicit & Dev-Safe)
+  const allowedOrigins = ['http://localhost:5173', 'http://127.0.0.1:5173'];
   app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
     credentials: true,
   }));
+
+  // DEBUG: Log Auth Requests (REMOVE AFTER FIXED)
+  app.use('/api/auth', (req, _res, next) => {
+    console.log('[AuthDebug]', req.method, req.path, {
+      origin: req.headers.origin,
+      host: req.headers.host,
+    });
+    next();
+  });
 
   // Auth Handler (CRITICAL: Before express.json)
   app.all('/api/auth/*', toNodeHandler(auth));
