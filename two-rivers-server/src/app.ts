@@ -27,14 +27,6 @@ export const createApp = () => {
     credentials: true,
   }));
 
-  // DEBUG: Log Auth Requests (REMOVE AFTER FIXED)
-  app.use('/api/auth', (req, _res, next) => {
-    console.log('[AuthDebug]', req.method, req.path, {
-      origin: req.headers.origin,
-      host: req.headers.host,
-    });
-    next();
-  });
 
   // Auth Handler (CRITICAL: Before express.json)
   app.all('/api/auth/*', toNodeHandler(auth));
